@@ -21,8 +21,8 @@
                 <tr>
                     <td class="border border-gray-300 px-4 py-2">{{ item.menu_item.name }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ item.quantity }}</td>
-                    <td class="border border-gray-300 px-4 py-2">${{ item.menu_item.price }}</td>
-                    <td class="border border-gray-300 px-4 py-2">${{ item.total_price }}</td>
+                    <td class="border border-gray-300 px-4 py-2">Rs {{ item.menu_item.price }}</td>
+                    <td class="border border-gray-300 px-4 py-2">Rs {{ item.total_price }}</td>
                 </tr>
                 
                 {% endfor %}
@@ -37,7 +37,7 @@
             <label for="menu_item_id" class="block mb-2">Menu Item:</label>
             <select name="menu_item_id" id="menu_item_id" class="border border-gray-300 rounded px-4 py-2 w-full mb-4">
                 {% for menu_item in menu_items %}
-                <option value="{{ menu_item.id }}">{{ menu_item.name }} - ${{ menu_item.price }}</option>
+                <option value="{{ menu_item.id }}">{{ menu_item.name }} - Rs {{ menu_item.price }}</option>
                 {% endfor %}
             </select>
             

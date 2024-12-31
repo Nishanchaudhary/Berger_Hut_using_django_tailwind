@@ -1090,6 +1090,11 @@ select {
   background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
 }
 
+.bg-green-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(240 253 244 / var(--tw-bg-opacity, 1));
+}
+
 .bg-red-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1));
@@ -1103,11 +1108,6 @@ select {
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
-}
-
-.bg-green-50 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(240 253 244 / var(--tw-bg-opacity, 1));
 }
 
 .bg-opacity-40 {
@@ -1166,16 +1166,16 @@ select {
      object-fit: cover;
 }
 
+.p-4 {
+  padding: 1rem;
+}
+
 .p-6 {
   padding: 1.5rem;
 }
 
 .p-8 {
   padding: 2rem;
-}
-
-.p-4 {
-  padding: 1rem;
 }
 
 .px-2 {
@@ -1343,6 +1343,11 @@ select {
   color: rgb(74 222 128 / var(--tw-text-opacity, 1));
 }
 
+.text-green-800 {
+  --tw-text-opacity: 1;
+  color: rgb(22 101 52 / var(--tw-text-opacity, 1));
+}
+
 .text-red-500 {
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity, 1));
@@ -1356,11 +1361,6 @@ select {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
-}
-
-.text-green-800 {
-  --tw-text-opacity: 1;
-  color: rgb(22 101 52 / var(--tw-text-opacity, 1));
 }
 
 .underline {
@@ -1505,17 +1505,6 @@ select {
   outline-offset: 2px;
 }
 
-.focus\:ring-2:focus {
-  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
-  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
-  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
-}
-
-.focus\:ring-blue-600:focus {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(37 99 235 / var(--tw-ring-opacity, 1));
-}
-
 @media (min-width: 640px) {
   .sm\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1622,11 +1611,6 @@ select {
 }
 
 @media (prefers-color-scheme: dark) {
-  .dark\:bg-gray-800 {
-    --tw-bg-opacity: 1;
-    background-color: rgb(31 41 55 / var(--tw-bg-opacity, 1));
-  }
-
   .dark\:bg-white {
     --tw-bg-opacity: 1;
     background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));

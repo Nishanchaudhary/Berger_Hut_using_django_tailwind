@@ -1,0 +1,49 @@
+{% extends "layout/base.html" %}
+{% load static %}
+{% block title %}|Menu {% endblock title %}
+{% block content %}
+
+<!-- Menu Section -->
+<section class="menu py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <!-- Section Title -->
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8">Our Menu</h2>
+
+        <!-- Menu Items -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Menu Item 1 -->
+            {% for item in menu_items %}
+            <div
+                class="menu-item bg-white border border-gray-300 rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl">
+                {% if item.image %}
+                <img src="{{ item.image.url }}" alt="{{ item.name }}"
+                    class="w-full h-64 object-cover border-b border-gray-300">
+                {% endif %}
+                
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ item.name }}</h3>
+                    <p class="text-gray-600 mb-4">
+                        {{ item.description }}
+                    </p>
+
+                    <p class="text-green-400 font-bold">Price: Rs {{ item.price }}</p>
+
+                    <form action="{% url 'create_order' %}" method="post">
+                        {% csrf_token %}
+
+                        <input type="hidden" name="menu_item_id" value="{{ item.id }}">
+
+                        <button
+                            class="w-full bg-red-600 text-white font-medium py-2 rounded-lg hover:bg-red-700 transition">
+                            Order Now
+                        </button>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

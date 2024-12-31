@@ -1,0 +1,54 @@
+{% extends "layout/base.html" %}
+{% load static %}
+{% block title %}|Burger Hut {% endblock title %}
+{% block content %}
+
+ <div class="container mx-auto p-8">
+        <h1 class="text-3xl font-bold mb-6">Order #{{ order.id }}</h1>
+        
+        <!-- Order Items -->
+        <table class="w-full border-collapse border border-gray-300 mb-8">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border border-gray-300 px-4 py-2">Item</th>
+                    <th class="border border-gray-300 px-4 py-2">Quantity</th>
+                    <th class="border border-gray-300 px-4 py-2">Price</th>
+                    <th class="border border-gray-300 px-4 py-2">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td class="border border-gray-300 px-4 py-2">{{ item.menu_item.name }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ item.quantity }}</td>
+                    <td class="border border-gray-300 px-4 py-2">${{ item.menu_item.price }}</td>
+                    <td class="border border-gray-300 px-4 py-2">${{ item.total_price }}</td>
+                </tr>
+                
+                {% endfor %}
+            </tbody>
+        </table>
+
+        
+
+        <!-- Add Item to Order -->
+        <form method="POST" class="mb-6">
+            {% csrf_token %}
+            <label for="menu_item_id" class="block mb-2">Menu Item:</label>
+            <select name="menu_item_id" id="menu_item_id" class="border border-gray-300 rounded px-4 py-2 w-full mb-4">
+                {% for menu_item in menu_items %}
+                <option value="{{ menu_item.id }}">{{ menu_item.name }} - ${{ menu_item.price }}</option>
+                {% endfor %}
+            </select>
+            
+            <label for="quantity" class="block mb-2">Quantity:</label>
+            <input type="number" name="quantity" id="quantity" min="1" value="1" class="border border-gray-300 rounded px-4 py-2 w-full mb-4">
+            
+            <button type="submit" class="w-full bg-blue-500 text-white font-bold py-2 rounded hover:bg-blue-600">
+                Add Item
+            </button>
+        </form>
+
+        <a href="{% url 'home' %}" class="text-blue-500 underline">Back to Home</a>
+    </div>
+{% endblock content %}

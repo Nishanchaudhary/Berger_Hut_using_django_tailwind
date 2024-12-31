@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burger Hut | Register</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+   
+
+    <!-- Registration Form -->
+    <div class="flex justify-center items-center h-screen mt-32">
+        <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+
+             <!-- Logo Section -->
+    <div class="flex justify-center">
+        <img src="{% static 'img/iconlogo.png' %}" alt="Burger Hut Logo" class="w-32 h-auto">
+    </div>
+
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Create Your Account</h2>
+            <form  method="POST" class="space-y-6">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button 
+                    type="submit" 
+                    class="w-full bg-red-600 text-white font-medium py-2 rounded-lg hover:bg-red-700 transition duration-300">
+                    Register
+                </button>
+            </form>
+            <!-- Login Link -->
+            <p class="text-sm text-center text-gray-600 mt-4">
+                Already have an account? 
+                <a href="{% url 'user_login' %}" class="text-red-600 hover:underline">Login Here</a>
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>

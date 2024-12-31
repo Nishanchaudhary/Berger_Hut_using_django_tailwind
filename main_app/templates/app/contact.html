@@ -1,0 +1,60 @@
+{% extends "layout/base.html" %}
+{% load static %}
+{% block title %}|Contact {% endblock title %}
+{% block content %}
+
+<!-- Contact Section -->
+<section class="contact py-16">
+    {% if messages %}
+    <div class="messages text-center ">
+        {% for message in messages %}
+        <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-white dark:text-green-400" role="alert">
+            <span class="font-medium text-xl">{{ message }}</span> 
+          </div>
+       
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Title -->
+        <h2 class="text-4xl font-extrabold text-gray-800 text-center mb-12 drop-shadow-lg">
+            Contact Us
+        </h2>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <!-- Contact Form -->
+            <form method="post" class="contact-form bg-white shadow-lg rounded-lg p-8 space-y-6">
+
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                <button type="submit"
+                    class="w-full bg-red-600 text-white font-medium py-3 rounded-lg hover:bg-red-700 transition">
+                    Send Message
+                </button>
+            </form>
+
+            <!-- Location & Contact Details -->
+            <div class="location-details space-y-8">
+                <!-- Google Map Embed -->
+                <div class="map-container overflow-hidden rounded-lg shadow-lg">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d170637.256140597!2d80.80210435300792!3d28.682125171562504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39a23d7a9386ebbd%3A0x332e5f66f1f197a9!2z4KSY4KWL4KSh4KS-4KSY4KWL4KSh4KWAIDEwOTAw!5e1!3m2!1sne!2snp!4v1735509759863!5m2!1sne!2snp"
+                        width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="contact-info text-left bg-white shadow-lg rounded-lg p-6">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Get in Touch</h3>
+                    <p class="text-gray-600 mb-2"><strong>Location:</strong> Ghodaghodi -2, Kailali</p>
+                    <p class="text-gray-600 mb-2"><strong>Contact Number:</strong> +9779704569867</p>
+                    <p class="text-gray-600"><strong>Email:</strong> contact@example.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

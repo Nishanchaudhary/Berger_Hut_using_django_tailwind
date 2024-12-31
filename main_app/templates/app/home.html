@@ -1,0 +1,84 @@
+{% extends "layout/base.html" %}
+{% load static %}
+{% block title %}|Home {% endblock title %}
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero bg-cover bg-center h-screen flex items-center justify-center text-white"
+    style="background-image: url('{% static 'img/hero-background.jpg' %}');">
+    <div class="text-center px-4 md:px-8">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4">Welcome to <span class="text-gray-700 hover:text-red-600 italic " > Berger Hut</span></h1>
+        <p class="text-lg font-serif italic md:text-xl mb-6">Experience the Taste of Perfection</p>
+        <a href="{% url 'menu' %}" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-lg shadow-lg transition duration-300">
+            Explore Our Menu
+        </a>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials py-16 bg-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8">What Our Customers Say</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Testimonial 1 -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <img src="{% static 'img/customer1.jpg' %}" alt="Customer 1"
+                    class="h-20 w-20 mx-auto rounded-full mb-4">
+                <p class="text-gray-600 italic mb-4">
+                    "The burgers at Berger Hut are simply amazing! The flavors are rich, and the ingredients are always
+                    fresh. It's my go-to place whenever I'm craving a delicious meal."
+                </p>
+                <h4 class="text-lg font-bold text-gray-800">John Doe</h4>
+            </div>
+            <!-- Testimonial 2 -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <img src="{% static 'img/customer2.jpg' %}" alt="Customer 2"
+                    class="h-20 w-20 mx-auto rounded-full mb-4">
+                <p class="text-gray-600 italic mb-4">
+                    "Berger Hut never disappoints! The quality of their burgers and the friendly service make it a
+                    top-notch dining experience. I highly recommend it to all burger lovers!"
+                </p>
+                <h4 class="text-lg font-bold text-gray-800">Jane Smith</h4>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Gallery Section -->
+<section class="gallery py-16 bg-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-8">Gallery</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <!-- Image 1 -->
+            <div class="relative overflow-hidden rounded-lg">
+                <img src="{% static 'img/gallery1.jpg' %}" alt="Image 1" class="w-full h-full object-cover transition-transform duration-300 transform hover:scale-105">
+                <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-white text-lg font-semibold">
+                    Image 1
+                </div>
+            </div>
+            <!-- Image 2 -->
+            <div class="relative overflow-hidden rounded-lg">
+                <img src="{% static 'img/gallery2.jpg' %}" alt="Image 2" class="w-full h-full object-cover transition-transform duration-300 transform hover:scale-105">
+                <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-white text-lg font-semibold">
+                    Image 2
+                </div>
+            </div>
+            <!-- Image 3 -->
+            <div class="relative overflow-hidden rounded-lg">
+                <img src="{% static 'img/gallery3.jpg' %}" alt="Image 3" class="w-full h-full object-cover transition-transform duration-300 transform hover:scale-105">
+                <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-white text-lg font-semibold">
+                    Image 3
+                </div>
+            </div>
+            <!-- Image 4 -->
+            <div class="relative overflow-hidden rounded-lg">
+                <img src="{% static 'img/gallery4.jpg' %}" alt="Image 4" class="w-full h-full object-cover transition-transform duration-300 transform hover:scale-105">
+                <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-white text-lg font-semibold">
+                    Image 4
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

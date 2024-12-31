@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+{% load static %}
+{% load static tailwind_tags %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <title>Berger Hut {% block title %}{% endblock title %}</title>
+    {% tailwind_css %}
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+    <!-- Header -->
+    <header class="fixed top-0 w-full bg-gradient-to-r from-blue-100 to-blue-200 shadow-md z-50">
+        <div class="flex flex-wrap items-center justify-between px-4 py-3 md:px-6 md:py-4">
+            <!-- Logo -->
+            <div class="logo">
+                <a href="{% url 'home' %}">
+                    <img src="{% static 'img/iconlogo.png' %}" alt="Berger Hut Logo"
+                        class="h-10 transition-transform duration-300 transform hover:scale-105 "></a>
+            </div>
+            <!-- Navbar Toggle (Mobile) -->
+            <button class="block md:hidden text-gray-700 focus:outline-none" id="navbar-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+            <!-- Navbar Links -->
+            <nav id="navbar-menu" class="hidden md:block w-full md:w-auto">
+                <ul class="flex text-xl flex-col md:flex-row md:space-x-6 mt-3 md:mt-0">
+                    <li><a href="{% url 'home' %}"
+                            class="block  font-semibold text-gray-700 hover:hover:text-red-600 py-2 md:py-0">Home</a>
+                    </li>
+                    <li><a href="{% url 'about' %}"
+                            class="block font-semibold text-gray-700 hover:hover:text-red-600 py-2 md:py-0">About</a>
+                    </li>
+                    <li><a href="{% url 'menu' %}"
+                            class="block font-semibold text-gray-700 hover:hover:text-red-600 py-2 md:py-0">Menu</a>
+                    </li>
+
+                    <li><a href="{% url 'contact' %}"
+                            class="block font-semibold text-gray-700 hover:hover:text-red-600 py-2 md:py-0">Contact</a>
+                    </li>
+
+                    {% if user.is_authenticated %}
+
+                    <!-- Right Section: Order Items and Login -->
+                    <div class="flex items-center space-x-4">
+                        <!-- Order Item Count -->
+                        <div class="relative">
+                            <a href="" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                                <img class="inline-block  w-9 h-9 transition-transform transform hover:scale-110 hover:rotate-12 hover:opacity-80 "
+                                    width="35" height="35" src="https://img.icons8.com/ios-glyphs/30/fast-cart.png"
+                                    alt="fast-cart" />
+                                <span
+                                    class="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold rounded-full px-2 py-1">
+                                    {{ cart_item_count }}
+                                </span>
+                            </a>
+                        </div>
+
+                        <li>
+
+                            <img src="{% static 'img/profile.jpg' %}" alt="Default"
+                                style="width:33px; height:33px; border-radius:50%;">
+
+                            <p class="font-medium text-sm">{{ user.username }}</p>
+                        </li>
+
+                        <a href="{% url 'user_logout' %}"
+                            class="bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-700">
+                            Logout
+                        </a>
+
+                        {% else %}
+                        <a href="{% url 'user_login' %}"
+                            class="bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-700">
+                            Login
+                        </a>
+
+                        {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="mt-10">
+        {% block content %}{% endblock content %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-100 to-blue-200 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <!-- Footer Logo -->
+                <div class="mb-4 md:mb-0">
+                    <a href="{% url 'home' %}">
+                        <img src="{% static 'img/iconlogo.png' %}" alt="Logo"
+                            class="h-12 transition-transform duration-300 transform hover:scale-105 "></a>
+                </div>
+                <!-- Footer Links -->
+                <nav class="flex flex-wrap justify-center space-x-6 text-sm mb-4 md:mb-0">
+                    <a href="{% url 'home' %}" class="text-gray-700  hover:text-red-600">Home</a>
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-red-600">About</a>
+                    <a href="{% url 'menu' %}" class="text-gray-700 hover:text-red-600">Menu</a>
+                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-red-600">Contact</a>
+                </nav>
+                <!-- Social Icons -->
+                <div class="flex space-x-6 justify-center mt-8">
+                    <!-- Facebook Icon -->
+                    <a href="#"
+                        class="text-blue-600 hover:text-blue-800 transition duration-300 transform hover:scale-110">
+                        <i class="fab fa-facebook-f text-3xl"></i>
+                    </a>
+                    <!-- Twitter Icon -->
+                    <a href="#"
+                        class="text-blue-500 hover:text-blue-600 transition duration-300 transform hover:scale-110">
+                        <i class="fab fa-twitter text-3xl"></i>
+                    </a>
+                    <!-- Instagram Icon -->
+                    <a href="#"
+                        class="text-red-500 hover:text-red-600 transition duration-300 transform hover:scale-110">
+                        <i class="fab fa-instagram text-3xl"></i>
+                    </a>
+                </div>
+            </div>
+            <p class="text-center text-gray-500 text-sm mt-4">&copy; <span id="year"></span> <span
+                    class="text-red-500 hover:text-red-800">Berger Hut</span> . All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Update footer year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Toggle navbar for mobile
+        const toggleButton = document.getElementById('navbar-toggle');
+        const navbarMenu = document.getElementById('navbar-menu');
+
+        toggleButton.addEventListener('click', () => {
+            navbarMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+
+</html>

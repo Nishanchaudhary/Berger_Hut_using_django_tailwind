@@ -1,0 +1,31 @@
+{% extends "layout/base.html" %}
+{% load static %}
+{% block title %}|About {% endblock title %}
+{% block content %}
+
+<!-- About Section -->
+<section class="about bg-gray-100 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <!-- About Content -->
+        <div class="about-content text-center lg:text-left">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">About Berger Hut</h2>
+            <p class="text-gray-600 mb-4">
+                Experience the finest gourmet burgers in a cozy and rustic atmosphere. At Berger Hut, we are dedicated to delivering exceptional flavors that will tantalize your taste buds.
+            </p>
+            <p class="text-gray-600 mb-6">
+                Our chefs meticulously craft each burger using locally sourced ingredients and unique flavor combinations. From juicy beef patties to mouthwatering vegetarian options, there's something for everyone.
+            </p>
+            <a href="{% url 'menu' %}" class="inline-block bg-red-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-red-700 ">
+                Explore Our Menu
+            </a>
+        </div>
+
+        <!-- About Image -->
+        <div class="about-image">
+            <img src="{% static 'img/about-image.jpg' %}" alt="About Image" 
+                 class="w-full rounded-lg shadow-lg">
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

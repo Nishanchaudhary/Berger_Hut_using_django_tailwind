@@ -1,0 +1,355 @@
+"GET /checkout/ HTTP/1.1" 200 22330
+Khalti API is marked as unhealthy, skipping initiation
+Checkout error: Reverse for 'order_history' with keyword arguments '{'order_id': 15}' not found. 1 pattern(s) tried: ['orders/\\Z']
+"POST /checkout/ HTTP/1.1" 302 0
+"GET /checkout/ HTTP/1.1" 302 0
+"GET /menu/ HTTP/1.1" 200 25101
+Order history accessed by ram
+"GET /orders/ HTTP/1.1" 200 12735
+Cart viewed by ram, order ID: 16
+"GET /cart/ HTTP/1.1" 200 11477
+"GET /menu/ HTTP/1.1" 200 23760
+"GET /menu/ HTTP/1.1" 200 23760
+E:\Berger Hut\Berger_Hut\main_app\views.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /menu/ HTTP/1.1" 200 23760
+Watching for file changes with StatReloader
+"GET /menu/ HTTP/1.1" 200 23760
+Item BBQ Beef Burger added to cart for ram
+"POST /cart/add/1/ HTTP/1.1" 302 0
+"GET /menu/ HTTP/1.1" 200 24697
+Cart viewed by ram, order ID: 16
+"GET /cart/ HTTP/1.1" 200 15652
+Checkout error: Reverse for 'khalti_payment' not found. 'khalti_payment' is not a valid view function or pattern name.
+"GET /checkout/ HTTP/1.1" 302 0
+Cart viewed by ram, order ID: 16
+"GET /cart/ HTTP/1.1" 200 16134
+Checkout error: Reverse for 'khalti_payment' not found. 'khalti_payment' is not a valid view function or pattern name.
+"GET /checkout/ HTTP/1.1" 302 0
+Cart viewed by ram, order ID: 16
+"GET /cart/ HTTP/1.1" 200 16134
+E:\Berger Hut\Berger_Hut\main_app\khalti_payment.py changed, reloading.
+Watching for file changes with StatReloader
+Cart viewed by ram, order ID: 16
+"GET /cart/ HTTP/1.1" 200 15652
+E:\Berger Hut\Berger_Hut\main_app\khalti_payment.py changed, reloading.
+Watching for file changes with StatReloader
+Cart viewed by ram, order ID: 16
+"GET /cart/ HTTP/1.1" 200 15652
+Cart viewed by ram, order ID: 16
+"GET /cart/ HTTP/1.1" 200 15652
+Cart viewed by ram, order ID: 16
+"GET /cart/ HTTP/1.1" 200 15652
+Removed item BBQ Beef Burger from cart for ram
+"POST /cart/update/23/ HTTP/1.1" 302 0
+Cart viewed by ram, order ID: 16
+"GET /cart/ HTTP/1.1" 200 11968
+"GET /menu/ HTTP/1.1" 200 23760
+Item BBQ Beef Burger added to cart for ram
+"POST /cart/add/1/ HTTP/1.1" 302 0
+"GET /menu/ HTTP/1.1" 200 24697
+Cart viewed by ram, order ID: 16
+"GET /cart/ HTTP/1.1" 200 15652
+"GET /checkout/ HTTP/1.1" 200 21967
+Payment initiation error: Reverse for 'khalti_callback' not found. 'khalti_callback' is not a valid view function or pattern name.
+Internal Server Error: /khalti/initiate/
+"POST /khalti/initiate/ HTTP/1.1" 500 34
+Checkout error: 'Order' object has no attribute 'update_from_form'
+"POST /checkout/ HTTP/1.1" 302 0
+"GET /checkout/ HTTP/1.1" 200 22449
+"GET /menu/ HTTP/1.1" 200 24202
+Cart viewed by ram, order ID: 16
+"GET /cart/ HTTP/1.1" 200 15652
+"GET /checkout/ HTTP/1.1" 200 21967
+Payment initiation error: Reverse for 'khalti_callback' not found. 'khalti_callback' is not a valid view function or pattern name.
+Internal Server Error: /khalti/initiate/
+"POST /khalti/initiate/ HTTP/1.1" 500 34
+Payment initiation error: Reverse for 'khalti_callback' not found. 'khalti_callback' is not a valid view function or pattern name.
+Internal Server Error: /khalti/initiate/
+"POST /khalti/initiate/ HTTP/1.1" 500 34
+Payment initiation error: Reverse for 'khalti_callback' not found. 'khalti_callback' is not a valid view function or pattern name.
+Internal Server Error: /khalti/initiate/
+"POST /khalti/initiate/ HTTP/1.1" 500 34
+E:\Berger Hut\Berger_Hut\main_app\views.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /checkout/ HTTP/1.1" 200 21967
+E:\Berger Hut\Berger_Hut\main_app\urls.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /checkout/ HTTP/1.1" 200 21967
+E:\Berger Hut\Berger_Hut\main_app\urls.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /checkout/ HTTP/1.1" 200 21967
+"GET /menu/ HTTP/1.1" 200 24202
+Item BBQ pulled pork added to cart for ram
+"POST /cart/add/6/ HTTP/1.1" 302 0
+"GET /menu/ HTTP/1.1" 200 24697
+Cart viewed by ram, order ID: 16
+"GET /cart/ HTTP/1.1" 200 18402
+"GET /checkout/ HTTP/1.1" 200 22335
+Payment initiation error: Reverse for 'khalti_callback' not found. 'khalti_callback' is not a valid view function or pattern name.
+Internal Server Error: /khalti/initiate/
+"POST /khalti/initiate/ HTTP/1.1" 500 34
+E:\Berger Hut\Berger_Hut\main_app\views.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /checkout/ HTTP/1.1" 200 22335
+E:\Berger Hut\Berger_Hut\main_app\views.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /checkout/ HTTP/1.1" 200 22335
+E:\Berger Hut\Berger_Hut\main_app\views.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /checkout/ HTTP/1.1" 200 22335
+Watching for file changes with StatReloader
+Cart count for user ram: 2
+Home page loaded successfully
+"GET / HTTP/1.1" 200 25245
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 7690
+"GET /menu/ HTTP/1.1" 200 24202
+Item BBQ Beef Burger added to cart for ram
+"POST /cart/add/1/ HTTP/1.1" 302 0
+"GET /menu/ HTTP/1.1" 200 24697
+Cart viewed by ram, order ID: 16
+"GET /cart/ HTTP/1.1" 200 18402
+Removed item BBQ pulled pork from cart for ram
+"POST /cart/update/25/ HTTP/1.1" 302 0
+Cart viewed by ram, order ID: 16
+"GET /cart/ HTTP/1.1" 200 16143
+Removed item BBQ Beef Burger from cart for ram
+"POST /cart/update/24/ HTTP/1.1" 302 0
+Cart viewed by ram, order ID: 16
+"GET /cart/ HTTP/1.1" 200 11968
+"GET /menu/ HTTP/1.1" 200 23760
+Item BBQ Beef Burger added to cart for ram
+"POST /cart/add/1/ HTTP/1.1" 302 0
+"GET /menu/ HTTP/1.1" 200 24697
+Cart viewed by ram, order ID: 16
+"GET /cart/ HTTP/1.1" 200 15652
+"GET /checkout/ HTTP/1.1" 200 21967
+Payment initiation error: Reverse for 'khalti_callback' not found. 'khalti_callback' is not a valid view function or pattern name.
+Internal Server Error: /khalti/initiate/
+"POST /khalti/initiate/ HTTP/1.1" 500 34
+"GET /checkout/ HTTP/1.1" 200 25417
+"GET /checkout/ HTTP/1.1" 200 25417
+"GET /menu/ HTTP/1.1" 200 27652
+Cart count for user ram: 1
+Home page loaded successfully
+"GET / HTTP/1.1" 200 28695
+Cart viewed by ram, order ID: 16
+"GET /cart/ HTTP/1.1" 200 19102
+"GET /checkout/ HTTP/1.1" 200 25417
+Payment initiation error: Reverse for 'khalti_callback' not found. 'khalti_callback' is not a valid view function or pattern name.
+Internal Server Error: /khalti/initiate/
+"POST /khalti/initiate/ HTTP/1.1" 500 34
+E:\Berger Hut\Berger_Hut\main_app\views.py changed, reloading.
+Watching for file changes with StatReloader
+E:\Berger Hut\Berger_Hut\main_app\views.py changed, reloading.
+Watching for file changes with StatReloader
+E:\Berger Hut\Berger_Hut\main_app\khalti_payment.py changed, reloading.
+Watching for file changes with StatReloader
+E:\Berger Hut\Berger_Hut\main_app\khalti_payment.py changed, reloading.
+Watching for file changes with StatReloader
+E:\Berger Hut\Berger_Hut\main_app\khalti_payment.py changed, reloading.
+Watching for file changes with StatReloader
+E:\Berger Hut\Berger_Hut\main_app\views.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /menu/ HTTP/1.1" 200 27652
+Watching for file changes with StatReloader
+E:\Berger Hut\Berger_Hut\main_app\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+E:\Berger Hut\Berger_Hut\main_app\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Cart count for user ram: 1
+Home page loaded successfully
+"GET / HTTP/1.1" 200 28695
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 7146
+Cart viewed by ram, order ID: 16
+"GET /cart/ HTTP/1.1" 200 19102
+Checkout error: Reverse for 'khalti_initiate' not found. 'khalti_initiate' is not a valid view function or pattern name.
+"GET /checkout/ HTTP/1.1" 302 0
+Cart viewed by ram, order ID: 16
+"GET /cart/ HTTP/1.1" 200 19584
+Checkout error: Reverse for 'khalti_initiate' not found. 'khalti_initiate' is not a valid view function or pattern name.
+"GET /checkout/ HTTP/1.1" 302 0
+Cart viewed by ram, order ID: 16
+"GET /cart/ HTTP/1.1" 200 19584
+Checkout error: Reverse for 'khalti_initiate' not found. 'khalti_initiate' is not a valid view function or pattern name.
+"GET /checkout/ HTTP/1.1" 302 0
+Cart viewed by ram, order ID: 16
+"GET /cart/ HTTP/1.1" 200 19584
+Cart viewed by ram, order ID: 16
+"GET /cart/ HTTP/1.1" 200 19102
+"GET /menu/ HTTP/1.1" 200 27652
+"GET /menu/ HTTP/1.1" 200 27652
+"GET /menu/ HTTP/1.1" 200 27652
+Filtering menu by category: classic-burgers
+"GET /menu/category/classic-burgers/ HTTP/1.1" 200 21899
+Filtering menu by category: cheese-burgers
+"GET /menu/category/cheese-burgers/ HTTP/1.1" 200 20511
+Promotion page accessed by ram
+"GET /promotions/ HTTP/1.1" 200 17346
+Contact page accessed
+"GET /contact/ HTTP/1.1" 200 26027
+"GET /menu/ HTTP/1.1" 200 27652
+Cart viewed by ram, order ID: 16
+"GET /cart/ HTTP/1.1" 200 19102
+Increased quantity for order item 26 for ram
+"POST /cart/update/26/ HTTP/1.1" 302 0
+Cart viewed by ram, order ID: 16
+"GET /cart/ HTTP/1.1" 200 19598
+Removed item BBQ Beef Burger from cart for ram
+"POST /cart/update/26/ HTTP/1.1" 302 0
+Cart viewed by ram, order ID: 16
+"GET /cart/ HTTP/1.1" 200 15418
+"GET /menu/ HTTP/1.1" 200 27210
+"GET /menu/ HTTP/1.1" 200 30484
+"GET /menu/ HTTP/1.1" 200 30484
+"GET /menu/ HTTP/1.1" 200 30484
+"GET /menu/ HTTP/1.1" 200 30482
+"GET /menu/ HTTP/1.1" 200 30486
+"GET /menu/ HTTP/1.1" 200 30485
+"GET /menu/ HTTP/1.1" 200 30486
+Promotion page accessed by ram
+"GET /promotions/ HTTP/1.1" 200 16904
+Contact page accessed
+"GET /contact/ HTTP/1.1" 200 25585
+"GET /accounts/profile/ HTTP/1.1" 200 21187
+"GET /media/profile_pictures/profile.jpg HTTP/1.1" 200 167530
+"GET /menu/ HTTP/1.1" 200 30486
+Loaded details for menu item: BBQ Beef Burger
+"GET /menu/item/1/ HTTP/1.1" 200 23099
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Home page loaded successfully
+"GET / HTTP/1.1" 200 26662
+Home page loaded successfully
+"GET / HTTP/1.1" 200 26662
+Home page loaded successfully
+"GET / HTTP/1.1" 200 26662
+"GET /static/img/hero-background.jpg HTTP/1.1" 200 596967
+"GET /static/img/iconlogo.png HTTP/1.1" 200 1340944
+"GET /media/menu_images/Chicken_Deluxe.jpg HTTP/1.1" 200 104056
+"GET /media/menu_images/Lamb_Burger.jpg HTTP/1.1" 200 271025
+"GET /static/django-browser-reload/reload-listener.js HTTP/1.1" 200 623
+"GET /media/menu_images/seafood-burger-with-crispy-fish.jpg HTTP/1.1" 200 78107
+"GET /media/menu_images/double-cheeseburger.jpg HTTP/1.1" 200 94302
+"GET /media/menu_images/bbq-pulled-pork-burger-with-slaw.jpg HTTP/1.1" 200 63291
+"GET /media/menu_images/bbq-chicken-burger.jpg HTTP/1.1" 200 74103
+"GET /static/django-browser-reload/reload-worker.js HTTP/1.1" 200 2711
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 7146
+Not Found: /serviceworker.js
+"GET /serviceworker.js HTTP/1.1" 404 7161
+"GET /menu/ HTTP/1.1" 200 28895
+Watching for file changes with StatReloader
+Home page loaded successfully
+"GET / HTTP/1.1" 200 26662
+Home page loaded successfully
+"GET / HTTP/1.1" 200 26662
+Home page loaded successfully
+"GET / HTTP/1.1" 200 26662
+Home page loaded successfully
+"GET / HTTP/1.1" 200 26662
+Home page loaded successfully
+"GET / HTTP/1.1" 200 26662
+Home page loaded successfully
+"GET / HTTP/1.1" 200 26662
+Home page loaded successfully
+"GET / HTTP/1.1" 200 26662
+Home page loaded successfully
+"GET / HTTP/1.1" 200 26662
+"GET /media/menu_images/bbq-chicken-burger.jpg HTTP/1.1" 200 74103
+"GET /static/img/hero-background.jpg HTTP/1.1" 200 596967
+"GET /media/menu_images/double-cheeseburger.jpg HTTP/1.1" 200 94302
+"GET /media/menu_images/Chicken_Deluxe.jpg HTTP/1.1" 200 104056
+"GET /static/django-browser-reload/reload-listener.js HTTP/1.1" 200 623
+"GET /media/menu_images/seafood-burger-with-crispy-fish.jpg HTTP/1.1" 200 78107
+"GET /media/menu_images/Lamb_Burger.jpg HTTP/1.1" 200 271025
+"GET /media/menu_images/bbq-pulled-pork-burger-with-slaw.jpg HTTP/1.1" 200 63291
+"GET /static/img/iconlogo.png HTTP/1.1" 200 1340944
+"GET /static/django-browser-reload/reload-worker.js HTTP/1.1" 200 2711
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 7146
+Not Found: /serviceworker.js
+"GET /serviceworker.js HTTP/1.1" 404 7161
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+E:\Berger Hut\Berger_Hut\Berger_Hut\settings.py changed, reloading.
+Watching for file changes with StatReloader
+E:\Berger Hut\Berger_Hut\Berger_Hut\settings.py changed, reloading.
+Watching for file changes with StatReloader
+E:\Berger Hut\Berger_Hut\Berger_Hut\settings.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Home page loaded successfully
+"GET / HTTP/1.1" 200 26662
+"GET /media/menu_images/bbq-chicken-burger.jpg HTTP/1.1" 200 74103
+"GET /static/img/hero-background.jpg HTTP/1.1" 200 596967
+"GET /media/menu_images/seafood-burger-with-crispy-fish.jpg HTTP/1.1" 200 78107
+"GET /media/menu_images/bbq-pulled-pork-burger-with-slaw.jpg HTTP/1.1" 200 63291
+"GET /media/menu_images/Lamb_Burger.jpg HTTP/1.1" 200 271025
+"GET /media/menu_images/double-cheeseburger.jpg HTTP/1.1" 200 94302
+"GET /media/menu_images/Chicken_Deluxe.jpg HTTP/1.1" 200 104056
+"GET /static/img/iconlogo.png HTTP/1.1" 200 1340944
+"GET /static/django-browser-reload/reload-listener.js HTTP/1.1" 200 623
+"GET /static/django-browser-reload/reload-worker.js HTTP/1.1" 200 2711
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 7146
+"GET /menu/ HTTP/1.1" 200 28895
+"GET /promotions/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/promotions/ HTTP/1.1" 200 18472
+Contact page accessed
+"GET /contact/ HTTP/1.1" 200 23994
+Contact page accessed
+"GET /contact/ HTTP/1.1" 200 23994
+"GET /accounts/login/ HTTP/1.1" 200 18472
+"GET /accounts/register/ HTTP/1.1" 200 21837
+"GET /accounts/register/ HTTP/1.1" 200 21837
+"GET /accounts/login/ HTTP/1.1" 200 18472
+"POST /accounts/login/ HTTP/1.1" 302 0
+"GET /accounts/profile/ HTTP/1.1" 200 21221
+"GET /media/profile_pictures/nc_igZcaUm.jpg HTTP/1.1" 200 67383
+Cart viewed by nishan, order ID: 17
+"GET /cart/ HTTP/1.1" 200 14933
+Contact page accessed
+"GET /contact/ HTTP/1.1" 200 25591
+Promotion page accessed by nishan
+"GET /promotions/ HTTP/1.1" 200 16910
+"GET /menu/ HTTP/1.1" 200 30492
+Loaded details for menu item: BBQ pulled pork
+"GET /menu/item/6/ HTTP/1.1" 200 21667
+Loaded details for menu item: BBQ pulled pork
+"GET /menu/item/6/ HTTP/1.1" 200 22375
+Loaded details for menu item: BBQ pulled pork
+"GET /menu/item/6/ HTTP/1.1" 200 22375
+Item BBQ pulled pork added to cart for nishan
+"POST /cart/add/6/ HTTP/1.1" 302 0
+Loaded details for menu item: BBQ pulled pork
+"GET /menu/item/6/ HTTP/1.1" 200 23312
+Cart viewed by nishan, order ID: 17
+"GET /cart/ HTTP/1.1" 200 19122
+Checkout error: Reverse for 'khalti_initiate' not found. 'khalti_initiate' is not a valid view function or pattern name.
+"GET /checkout/ HTTP/1.1" 302 0
+Cart viewed by nishan, order ID: 17
+"GET /cart/ HTTP/1.1" 200 19604
+"GET /menu/ HTTP/1.1" 200 30934
+Filtering menu by category: classic-burgers
+"GET /menu/category/classic-burgers/ HTTP/1.1" 200 23793
+Filtering menu by category: breakfast-burgers
+"GET /menu/category/breakfast-burgers/ HTTP/1.1" 200 22047
+"GET /menu/ HTTP/1.1" 200 30934
+Promotion page accessed by nishan
+"GET /promotions/ HTTP/1.1" 200 17352
+Contact page accessed
+"GET /contact/ HTTP/1.1" 200 26033
+"GET /accounts/profile/ HTTP/1.1" 200 21663
+"GET /menu/ HTTP/1.1" 200 30934
+Search performed for 'BBq' returning 2 results
+"GET /search/?q=BBq HTTP/1.1" 200 22315
+Search performed for 'BBq' returning 2 results
+"GET /search/?q=BBq HTTP/1.1" 200 22315

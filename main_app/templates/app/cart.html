@@ -1,0 +1,107 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block title %}Your Cart{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold mb-8 flex items-center">
+        <i class="fas fa-shopping-cart mr-3"></i> Your Order
+    </h1>
+    
+    {% if items %}
+    <div class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
+        <table class="w-full">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="text-left p-4">Item</th>
+                    <th class="text-center p-4">Price</th>
+                    <th class="text-center p-4">Quantity</th>
+                    <th class="text-center p-4">Total</th>
+                    <th class="p-4"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr class="border-t border-gray-200">
+                    <td class="p-4">
+                        <div class="flex items-center">
+                            <img src="{{ item.menu_item.image.url|default:'/static/images/default-burger.jpg' }}" alt="{{ item.menu_item.name }}" class="w-16 h-16 object-cover rounded mr-4">
+                            <div>
+                                <h3 class="font-semibold">{{ item.menu_item.name }}</h3>
+                                {% if item.special_requests %}
+                                <p class="text-sm text-gray-500 mt-1">{{ item.special_requests }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </td>
+                    <td class="p-4 text-center">Rs {{ item.menu_item.price }}</td>
+                    <td class="p-4 text-center">
+                        <div class="flex items-center justify-center">
+                            <form action="{% url 'update_cart' item_id=item.id %}" method="post" class="inline">
+                                {% csrf_token %}
+                                <input type="hidden" name="action" value="decrease">
+                                <button type="submit" class="bg-gray-200 px-2 py-1 rounded-l hover:bg-gray-300">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </form>
+                            <span class="border-t border-b border-gray-200 px-3 py-1">{{ item.quantity }}</span>
+                            <form action="{% url 'update_cart' item_id=item.id %}" method="post" class="inline">
+                                {% csrf_token %}
+                                <input type="hidden" name="action" value="increase">
+                                <button type="submit" class="bg-gray-200 px-2 py-1 rounded-r hover:bg-gray-300">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                    <td class="p-4 text-center">Rs {{ item.total_price }}</td>
+                    <td class="p-4 text-center">
+                        <form action="{% url 'update_cart' item_id=item.id %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="remove">
+                            <button type="submit" class="text-red-500 hover:text-red-700">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <!-- Order Summary -->
+        <div class="border-t border-gray-200 p-6 bg-gray-50">
+            <div class="flex justify-between mb-2">
+                <span class="font-semibold">Subtotal:</span>
+                <span>Rs {{ order.total_price }}</span>
+            </div>
+            <div class="flex justify-between mb-2">
+                <span class="font-semibold">Tax (10%):</span>
+                <span>Rs {% widthratio order.total_price 1 0.1 %}</span>
+            </div>
+            <div class="flex justify-between text-xl font-bold mt-4 pt-4 border-t border-gray-200">
+                <span>Total:</span>
+                <span>Rs {% widthratio order.total_price 1 1.1 %}</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Checkout Button -->
+    <div class="text-right">
+        <a href="{% url 'checkout' %}" class="bg-yellow-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-yellow-700 transition inline-flex items-center">
+            <i class="fas fa-credit-card mr-2"></i> Proceed to Checkout
+        </a>
+    </div>
+    {% else %}
+    <div class="bg-white rounded-lg shadow-md p-8 text-center">
+        <i class="fas fa-shopping-cart text-5xl text-gray-300 mb-4"></i>
+        <h3 class="text-xl font-semibold mb-2">Your cart is empty</h3>
+        <p class="text-gray-600 mb-4">Looks like you haven't added any items to your cart yet.</p>
+        <a href="{% url 'menu' %}" class="bg-yellow-600 text-white px-6 py-2 rounded-lg hover:bg-yellow-700 transition inline-flex items-center">
+            <i class="fas fa-utensils mr-2"></i> Browse Menu
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,149 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8 max-w-6xl">
+    <div class="flex flex-col lg:flex-row gap-6">
+        <!-- Left Column -->
+        <div class="w-full lg:w-1/3 space-y-6">
+            <!-- Profile Card -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="p-6 text-center">
+                    {% if user.profile_picture %}
+                        <img src="{{ user.profile_picture.url }}" alt="Profile Picture" 
+                             class="rounded-full w-36 h-36 object-cover mx-auto border-4 border-white shadow">
+                    {% else %}
+                        <div class="bg-gray-100 rounded-full w-36 h-36 flex items-center justify-center mx-auto shadow">
+                            <i class="fas fa-user text-gray-400 text-5xl"></i>
+                        </div>
+                    {% endif %}
+                    <h3 class="text-2xl font-semibold mt-4 text-gray-800">{{ user.get_full_name }}</h3>
+                    <p class="text-gray-500">@{{ user.username }}</p>
+                    <p class="text-gray-600 mb-4">{{ user.email }}</p>
+                    
+                    <div class="flex justify-center space-x-3">
+                        <a href="{% url 'edit_profile' %}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition duration-200">
+                            Edit Profile
+                        </a>
+                        <a href="{% url 'change_password' %}" class="border border-gray-300 hover:bg-gray-50 text-gray-700 px-4 py-2 rounded-lg transition duration-200">
+                            Change Password
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quick Actions -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="p-6">
+                    <h4 class="text-lg font-semibold text-gray-800 mb-4">Quick Actions</h4>
+                    <ul class="space-y-2">
+                        <li class="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg transition duration-150">
+                            <a href="#" class="flex items-center text-gray-700 hover:text-red-500 transition duration-150">
+                                <i class="fas fa-heart text-red-500 mr-2"></i>
+                                Favorite Items
+                            </a>
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                                {{ user.favorite_items.count }}
+                            </span>
+                        </li>
+                        <li class="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg transition duration-150">
+                            <a href="#" class="flex items-center text-gray-700 hover:text-blue-500 transition duration-150">
+                                <i class="fas fa-history text-blue-500 mr-2"></i>
+                                Order History
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Column -->
+        <div class="w-full lg:w-2/3">
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="border-b border-gray-200 px-6 py-4">
+                    <h4 class="text-lg font-semibold text-gray-800">Personal Information</h4>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-3">
+                        <div class="md:col-span-1">
+                            <p class="font-medium text-gray-700">Full Name</p>
+                        </div>
+                        <div class="md:col-span-3">
+                            <p class="text-gray-600">{{ user.get_full_name }}</p>
+                        </div>
+                    </div>
+                    <div class="border-t border-gray-100"></div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-3">
+                        <div class="md:col-span-1">
+                            <p class="font-medium text-gray-700">Username</p>
+                        </div>
+                        <div class="md:col-span-3">
+                            <p class="text-gray-600">@{{ user.username }}</p>
+                        </div>
+                    </div>
+                    <div class="border-t border-gray-100"></div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-3">
+                        <div class="md:col-span-1">
+                            <p class="font-medium text-gray-700">Email</p>
+                        </div>
+                        <div class="md:col-span-3">
+                            <p class="text-gray-600">{{ user.email }}</p>
+                        </div>
+                    </div>
+                    <div class="border-t border-gray-100"></div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-3">
+                        <div class="md:col-span-1">
+                            <p class="font-medium text-gray-700">Phone</p>
+                        </div>
+                        <div class="md:col-span-3">
+                            <p class="text-gray-600">{{ user.phone_number|default:"Not provided" }}</p>
+                        </div>
+                    </div>
+                    <div class="border-t border-gray-100"></div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-3">
+                        <div class="md:col-span-1">
+                            <p class="font-medium text-gray-700">Birth Date</p>
+                        </div>
+                        <div class="md:col-span-3">
+                            <p class="text-gray-600">{{ user.birth_date|date:"F d, Y"|default:"Not provided" }}</p>
+                        </div>
+                    </div>
+                    <div class="border-t border-gray-100"></div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-3">
+                        <div class="md:col-span-1">
+                            <p class="font-medium text-gray-700">Address</p>
+                        </div>
+                        <div class="md:col-span-3">
+                            <p class="text-gray-600 whitespace-pre-line">{{ user.address|default:"Not provided" }}</p>
+                        </div>
+                    </div>
+                    <div class="border-t border-gray-100"></div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-3">
+                        <div class="md:col-span-1">
+                            <p class="font-medium text-gray-700">Promotions</p>
+                        </div>
+                        <div class="md:col-span-3">
+                            {% if user.receive_promotions %}
+                                <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                                    Subscribed
+                                </span>
+                            {% else %}
+                                <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                                    Not Subscribed
+                                </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

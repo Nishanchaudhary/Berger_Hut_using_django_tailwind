@@ -1,112 +1,121 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm
-from .models import CustomUser,ContactMessage
-from django.core.exceptions import ValidationError
+from .models import *
+from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
+from accounts.models import CustomUser  
 
-class CustomUserCreationForm(UserCreationForm):
+class ReviewForm(forms.ModelForm):
     class Meta:
-        model = CustomUser
-        fields = ['username', 'email', 'password1', 'password2']
-
-class CustomAuthenticationForm(AuthenticationForm):
-    class Meta:
-        fields = ['username', 'password']
-
-class CustomUserCreationForm(UserCreationForm):
-    class Meta:
-        model = CustomUser
-        fields = [
-            'username', 'email', 'password1', 'password2',
-            'phone_number', 'address', 'profile_picture', 
-        ]
-
-class CustomUserChangeForm(UserChangeForm):
-    class Meta:
-        model = CustomUser
-        fields = [
-            'username', 'email', 'phone_number', 'address', 
-            'profile_picture', 
-        ]
-
-class LoginForm(forms.Form):
-    username = forms.CharField(
-        max_length=150,
-        widget=forms.TextInput(attrs={
-            'class': 'w-full border border-gray-300  rounded-lg shadow-sm focus:ring-red-600 focus:border-red-600',
-            'placeholder': 'Username'
-        })
-    )
-    password = forms.CharField(
-        widget=forms.PasswordInput(attrs={
-            'class': 'w-full border-gray-300 rounded-lg shadow-sm focus:ring-red-600 focus:border-red-600',
-            'placeholder': 'Password'
-        })
-    )
-
-class CustomUserCreationForm(UserCreationForm):
-
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput)
-
-    class Meta:
-        model = CustomUser
-        fields = ['username', 'email', 'password1', 'password2']
-
-    def clean_password2(self):
-        password1 = self.cleaned_data.get("password1")
-        password2 = self.cleaned_data.get("password2")
-        if password1 and password2 and password1 != password2:
-            raise forms.ValidationError("Passwords do not match.")
-        return password2
-
-
-    class Meta:
-        model = CustomUser
-        fields = ['username', 'email', 'password1', 'password2', 'phone_number', 'address']
+        model = Review
+        fields = ['rating', 'comment']
         widgets = {
-            'username': forms.TextInput(attrs={
-                'class': 'w-full border-gray-300 rounded-lg px-3 py-2',
-                'placeholder': 'Username'
-            }),
-            'email': forms.EmailInput(attrs={
-                'class': 'w-full border-gray-300 rounded-lg px-3 py-2',
-                'placeholder': 'Email'
-            }),
-            'phone_number': forms.TextInput(attrs={
-                'class': 'w-full border-gray-300 rounded-lg px-3 py-2',
-                'placeholder': 'Phone Number'
-            }),
-            'address': forms.Textarea(attrs={
-                'class': 'w-full border-gray-300 rounded-lg px-3 py-2',
-                'placeholder': 'Address',
-                'rows': 3
-            }),
-            'profile_image': forms.FileInput(attrs={
-                'class': 'w-full border-gray-300 rounded-lg px-3 py-2',
-            }),
-        }
-        help_texts = {
-            'username': None,
-            'password1': None,
-            'password2': None,
+            'rating': forms.HiddenInput(),
+            'comment': forms.Textarea(attrs={
+                'class': 'w-full px-4 py-2 border rounded focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500',
+                'rows': 4,
+                'placeholder': 'Share your experience...'
+            })
         }
 
 class ContactForm(forms.ModelForm):
     class Meta:
         model = ContactMessage
-        fields = ['name', 'email', 'message']
+        fields = ['name', 'email', 'phone', 'subject', 'message']
         widgets = {
-            'name': forms.TextInput(attrs={
-                'class': 'w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600',
-                'placeholder': 'Your Name'
-            }),
-            'email': forms.EmailInput(attrs={
-                'class': 'w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600',
-                'placeholder': 'Your Email'
-            }),
-            'message': forms.Textarea(attrs={
-                'class': 'w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600',
-                'placeholder': 'Your Message',
-                'rows': 5
-            }),
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'phone': forms.TextInput(attrs={'class': 'form-control'}),
+            'subject': forms.TextInput(attrs={'class': 'form-control'}),
+            'message': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
         }
+
+class OrderStatusForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ['status']
+        widgets = {
+            'status': forms.Select(attrs={'class': 'form-control'})
+        }
+
+class PromotionForm(forms.ModelForm):
+    code = forms.CharField(  # Rename to 'code' to match your view
+        widget=forms.TextInput(attrs={
+            'class': 'w-full px-4 py-2 border rounded focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500',
+            'placeholder': 'Enter promo code'
+        }))
+    
+    class Meta:
+        model = Promotion
+        fields = []  # Remove promo_code since we're defining it manually
+
+class OrderItemForm(forms.ModelForm):
+    special_requests = forms.CharField(required=False)
+    class Meta:
+        model = OrderItem
+        fields = ['menu_item', 'quantity', 'special_requests']
+        widgets = {
+            'menu_item': forms.Select(attrs={'class': 'form-control'}),
+            'quantity': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'min': 1
+            }),
+            'special_requests': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 2,
+                'placeholder': 'Any special requests?'
+            })
+        }
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'first_name', 'last_name', 'email']  # Add the fields you want to include
+
+class CheckoutForm(forms.Form):
+    # Delivery information fields
+    delivery_address = forms.CharField(
+        label="Delivery Address",
+        widget=forms.Textarea(attrs={'rows': 3}),
+        required=True,
+        max_length=500
+    )
+    
+    contact_phone = forms.CharField(
+        label="Contact Phone",
+        required=True,
+        max_length=20,
+        validators=[
+            RegexValidator(
+                regex=r'^\+?1?\d{9,15}$',
+                message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed."
+            )
+        ]
+    )
+    
+    # Payment method choices
+    PAYMENT_CHOICES = [
+        ('khalti', 'Khelti'),
+        ('e-sewa', 'E-sewa'),
+        ('cash_on_delivery', 'Cash on Delivery'),
+    ]
+    
+    payment_method = forms.ChoiceField(
+        label="Payment Method",
+        choices=PAYMENT_CHOICES,
+        widget=forms.RadioSelect,
+        required=True
+    )
+    
+    additional_notes = forms.CharField(
+        label="Additional Notes (optional)",
+        widget=forms.Textarea(attrs={'rows': 2}),
+        required=False,
+        max_length=200
+    )
+    
+    save_address = forms.BooleanField(
+        label="Save this address for future orders",
+        required=False,
+        initial=True
+    )

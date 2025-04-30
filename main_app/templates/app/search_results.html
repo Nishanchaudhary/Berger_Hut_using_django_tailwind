@@ -1,0 +1,100 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+<div class="flex flex-col md:flex-row">
+    <!-- Categories Sidebar -->
+    <div class="md:w-1/4 mb-8 md:mb-0 md:pr-8">
+        <div class="bg-white rounded-lg shadow-md p-6 sticky top-4">
+            <h3 class="text-xl font-bold mb-4">Categories</h3>
+            <ul class="space-y-2">
+                <li>
+                    <a href="{% url 'menu' %}" class="block px-4 py-2 rounded hover:bg-gray-100">
+                        All Items
+                    </a>
+                </li>
+                {% for cat in categories %}
+                    {% if cat.slug %}
+                        <li>
+                            <a href="{% url 'menu_category' category_slug=cat.slug %}" 
+                               class="block px-4 py-2 rounded hover:bg-gray-100">
+                                {{ cat.name }} ({{ cat.menu_items.count }})
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <!-- Search Results Section -->
+    <div class="md:w-3/4">
+        <!-- Search Header -->
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-3xl font-bold">
+                Search Results
+            </h2>
+            <form method="get" action="{% url 'search' %}" class="flex">
+                <input type="text" name="q" value="{{ query }}" placeholder="Search menu..." 
+                       class="px-4 py-2 border rounded-l focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                <button type="submit" class="bg-yellow-600 text-white px-4 py-2 rounded-r hover:bg-yellow-700">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+
+        <!-- Search Results Info -->
+        <div class="mb-6 bg-yellow-50 border-l-4 border-yellow-400 p-4">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-info-circle text-yellow-400"></i>
+                </div>
+                <div class="ml-3">
+                    <p class="text-sm text-yellow-700">
+                        Found {{ results_count }} result{{ results_count|pluralize }} for "<span class="font-semibold">{{ query }}</span>"
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Grid -->
+        {% if results %}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {% for item in results %}
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <img src="{{ item.image.url|default:'/static/images/default-burger.jpg' }}" alt="{{ item.name }}" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-semibold">{{ item.name }}</h3>
+                        <span class="text-yellow-600 font-bold">Rs {{ item.price }}</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">{{ item.description|truncatewords:15 }}</p>
+                    <div class="flex justify-between items-center">
+                        <a href="{% url 'menu_item_detail' pk=item.pk %}" class="text-yellow-600 hover:text-yellow-700 font-medium">View Details</a>
+                        <form action="{% url 'add_to_cart' item_id=item.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 transition">
+                                <i class="fas fa-plus"></i> Add
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <!-- No Results Found -->
+        <div class="bg-white rounded-lg shadow-md p-8 text-center">
+            <i class="fas fa-search-minus text-5xl text-gray-300 mb-4"></i>
+            <h3 class="text-xl font-semibold mb-2">No items found</h3>
+            <p class="text-gray-600 mb-4">We couldn't find any menu items matching "<span class="font-semibold">{{ query }}</span>"</p>
+            <a href="{% url 'menu' %}" class="inline-block bg-yellow-600 text-white px-6 py-2 rounded hover:bg-yellow-700 transition">
+                Browse Full Menu
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

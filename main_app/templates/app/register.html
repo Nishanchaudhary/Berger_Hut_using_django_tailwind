@@ -9,34 +9,80 @@
 </head>
 <body class="bg-gray-100">
 
-   
-
-    <!-- Registration Form -->
-    <div class="flex justify-center items-center h-screen mt-32">
-        <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
-
-             <!-- Logo Section -->
-    <div class="flex justify-center">
-        <img src="{% static 'img/iconlogo.png' %}" alt="Burger Hut Logo" class="w-32 h-auto">
-    </div>
-
-            <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Create Your Account</h2>
-            <form  method="POST" class="space-y-6">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button 
-                    type="submit" 
-                    class="w-full bg-red-600 text-white font-medium py-2 rounded-lg hover:bg-red-700 transition duration-300">
-                    Register
-                </button>
-            </form>
-            <!-- Login Link -->
-            <p class="text-sm text-center text-gray-600 mt-4">
+    {% load static %}
+    
+    <div class="max-w-md mx-auto my-10 p-6 bg-white rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold mb-6 text-center">Create Account</h2>
+        
+        <form method="post" class="space-y-4">
+            {% csrf_token %}
+            
+            {% if form.non_field_errors %}
+                <div class="text-red-500 text-sm">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+            
+            <div>
+                <label for="{{ form.username.id_for_label }}" class="block text-sm font-medium text-gray-700">Username</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="text-red-500 text-sm">{{ form.username.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <div>
+                <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-700">Email</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <div class="text-red-500 text-sm">{{ form.email.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <div>
+                <label for="{{ form.password1.id_for_label }}" class="block text-sm font-medium text-gray-700">Password</label>
+                {{ form.password1 }}
+                {% if form.password1.errors %}
+                    <div class="text-red-500 text-sm">{{ form.password1.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <div>
+                <label for="{{ form.password2.id_for_label }}" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                {{ form.password2 }}
+                {% if form.password2.errors %}
+                    <div class="text-red-500 text-sm">{{ form.password2.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <div>
+                <label for="{{ form.phone_number.id_for_label }}" class="block text-sm font-medium text-gray-700">Phone Number (Optional)</label>
+                {{ form.phone_number }}
+                {% if form.phone_number.errors %}
+                    <div class="text-red-500 text-sm">{{ form.phone_number.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <div>
+                <label for="{{ form.address.id_for_label }}" class="block text-sm font-medium text-gray-700">Address (Optional)</label>
+                {{ form.address }}
+                {% if form.address.errors %}
+                    <div class="text-red-500 text-sm">{{ form.address.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300">
+                Register
+            </button>
+        </form>
+        
+        <div class="mt-4 text-center">
+            <p class="text-sm text-gray-600">
                 Already have an account? 
-                <a href="{% url 'user_login' %}" class="text-red-600 hover:underline">Login Here</a>
+                <a href="{% url 'login' %}" class="text-blue-600 hover:underline">Login here</a>
             </p>
         </div>
     </div>
-
+    
 </body>
 </html>

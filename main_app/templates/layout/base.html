@@ -1,150 +1,327 @@
 <!DOCTYPE html>
 {% load static %}
-{% load static tailwind_tags %}
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <title>Berger Hut {% block title %}{% endblock title %}</title>
-    {% tailwind_css %}
+    <title>Burger Hut | {% block title %}{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+        @media (max-width: 767px) {
+            .dropdown-menu {
+                position: static;
+                display: none;
+                width: 100%;
+                box-shadow: none;
+            }
+            .logo-container {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .nav-container {
+                justify-content: space-between;
+            }
+        }
+        /* Dark mode styles */
+        .dark-mode {
+            background-color: #1a202c;
+            color: #f7fafc;
+        }
+        .dark-mode nav {
+            background-color: #2d3748;
+        }
+        .dark-mode footer {
+            background-color: #2d3748;
+        }
+        .dark-mode .dropdown-menu {
+            background-color: #2d3748;
+            border-color: #4a5568;
+        }
+        .dark-mode .dropdown-menu a {
+            color: #f7fafc;
+        }
+        .dark-mode .dropdown-menu a:hover {
+            background-color: #4a5568;
+        }
+        .dark-mode #mobile-menu {
+            background-color: #2d3748;
+        }
+        .dark-mode #mobile-menu a:hover {
+            background-color: #4a5568;
+        }
+        .dark-mode #mobile-profile-menu a:hover {
+            background-color: #4a5568;
+        }
+    </style>
 </head>
-
-<body class="bg-gray-100 text-gray-800">
-    <!-- Header -->
-    <header class="fixed top-0 w-full bg-gradient-to-r from-blue-100 to-blue-200 shadow-md z-50">
-        <div class="flex flex-wrap items-center justify-between px-4 py-3 md:px-6 md:py-4">
-            <!-- Logo -->
-            <div class="logo">
-                <a href="{% url 'home' %}">
-                    <img src="{% static 'img/iconlogo.png' %}" alt="Berger Hut Logo"
-                        class="h-10 transition-transform duration-300 transform hover:scale-105 "></a>
-            </div>
-            <!-- Navbar Toggle (Mobile) -->
-            <button class="block md:hidden text-gray-700 focus:outline-none" id="navbar-toggle">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                </svg>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-yellow-600 text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center nav-container">
+            <!-- Mobile menu button (visible on small screens) -->
+            <button id="mobile-menu-button" class="md:hidden text-white">
+                <i class="fas fa-bars text-2xl"></i>
             </button>
-            <!-- Navbar Links -->
-            <nav id="navbar-menu" class="hidden md:block w-full md:w-auto">
-                <ul class="flex text-xl flex-col md:flex-row md:space-x-6 mt-3 md:mt-0">
-                    <li><a href="{% url 'home' %}"
-                            class="block  font-semibold text-gray-700 hover:hover:text-red-600 py-2 md:py-0">Home</a>
-                    </li>
-                    <li><a href="{% url 'about' %}"
-                            class="block font-semibold text-gray-700 hover:hover:text-red-600 py-2 md:py-0">About</a>
-                    </li>
-                    <li><a href="{% url 'menu' %}"
-                            class="block font-semibold text-gray-700 hover:hover:text-red-600 py-2 md:py-0">Menu</a>
-                    </li>
-
-                    <li><a href="{% url 'contact' %}"
-                            class="block font-semibold text-gray-700 hover:hover:text-red-600 py-2 md:py-0">Contact</a>
-                    </li>
-
-                    {% if user.is_authenticated %}
-
-                    <!-- Right Section: Order Items and Login -->
-                    <div class="flex items-center space-x-4">
-                        <!-- Order Item Count -->
-                        <div class="relative">
-                            <a href="" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                                <img class="inline-block  w-9 h-9 transition-transform transform hover:scale-110 hover:rotate-12 hover:opacity-80 "
-                                    width="35" height="35" src="https://img.icons8.com/ios-glyphs/30/fast-cart.png"
-                                    alt="fast-cart" />
-                                <span
-                                    class="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold rounded-full px-2 py-1">
-                                    {{ cart_item_count }}
-                                </span>
-                            </a>
-                        </div>
-
-                        <li>
-
-                            <img src="{% static 'img/profile.jpg' %}" alt="Default"
-                                style="width:33px; height:33px; border-radius:50%;">
-
-                            <p class="font-medium text-sm">{{ user.username }}</p>
-                        </li>
-
-                        <a href="{% url 'user_logout' %}"
-                            class="bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-700">
-                            Logout
-                        </a>
-
-                        {% else %}
-                        <a href="{% url 'user_login' %}"
-                            class="bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-700">
-                            Login
-                        </a>
-
+            
+            <!-- Logo centered on mobile -->
+            <div class="logo-container md:static md:transform-none">
+                <a href="{% url 'home' %}" class="flex items-center">
+                    <img src="{% static 'img/iconlogo.png' %}" alt="Burger Hut Logo"
+                        class="h-10 transition-transform duration-300 transform hover:scale-105">
+                </a>
+            </div>
+            
+            <!-- Empty div for spacing on mobile -->
+            <div class="md:hidden w-8"></div>
+            
+            <!-- Desktop Navigation (hidden on mobile) -->
+            <div class="hidden md:flex space-x-6 items-center">
+                <!-- Dark/Light mode toggle -->
+                <button id="theme-toggle" class="text-white hover:text-yellow-200 transition duration-200">
+                    <i class="fas fa-moon" id="theme-icon"></i>
+                </button>
+                
+                <a href="{% url 'menu' %}" class="hover:text-yellow-200 transition duration-200">Menu</a>
+                <a href="{% url 'promotions' %}" class="hover:text-yellow-200 transition duration-200">Promotions</a>
+                <a href="{% url 'contact' %}" class="hover:text-yellow-200 transition duration-200">Contact</a>
+                
+                {% if user.is_authenticated %}
+                    <a href="{% url 'cart' %}" class="relative hover:text-yellow-200 transition duration-200 ml-4">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        {% if cart_count > 0 %}
+                            <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                                {{ cart_count }}
+                            </span>
                         {% endif %}
-                </ul>
-            </nav>
+                    </a>
+                    
+                    <div class="dropdown relative ml-4">
+                        <button class="flex items-center space-x-1 focus:outline-none">
+                            <span>Hi, {{ user.first_name|default:user.username }}</span>
+                            <i class="fas fa-caret-down"></i>
+                        </button>
+                        <div class="dropdown-menu absolute hidden right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200">
+                            <a href="{% url 'profile' %}" class="block px-4 py-2 text-gray-800 hover:bg-yellow-100 transition duration-200">Profile</a>
+                            <a href="{% url 'order_history' %}" class="block px-4 py-2 text-gray-800 hover:bg-yellow-100 transition duration-200">My Orders</a>
+                            <a href="{% url 'logout' %}" class="block px-4 py-2 text-gray-800 hover:bg-yellow-100 transition duration-200">Logout</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="flex space-x-4 ml-4">
+                        <a href="{% url 'login' %}" class="hover:text-yellow-200 transition duration-200">Login</a>
+                        <a href="{% url 'register' %}" class="bg-yellow-700 px-4 py-2 rounded hover:bg-yellow-800 transition duration-200">Register</a>
+                    </div>
+                {% endif %}
+            </div>
         </div>
-    </header>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-yellow-600 text-white p-4 shadow-lg">
+        <!-- Mobile theme toggle -->
+        <button id="mobile-theme-toggle" class="w-full text-left py-3 px-2 hover:bg-yellow-700 rounded transition duration-200 flex items-center">
+            <i class="fas fa-moon mr-2" id="mobile-theme-icon"></i>
+            <span>Dark Mode</span>
+        </button>
+        
+        <a href="{% url 'menu' %}" class="block py-3 px-2 hover:bg-yellow-700 rounded transition duration-200">Menu</a>
+        <a href="{% url 'promotions' %}" class="block py-3 px-2 hover:bg-yellow-700 rounded transition duration-200">Promotions</a>
+        <a href="{% url 'contact' %}" class="block py-3 px-2 hover:bg-yellow-700 rounded transition duration-200">Contact</a>
+        
+        {% if user.is_authenticated %}
+            <a href="{% url 'cart' %}" class="block py-3 px-2 hover:bg-yellow-700 rounded transition duration-200 flex items-center">
+                <i class="fas fa-shopping-cart mr-2"></i>
+                Cart
+                {% if cart_count > 0 %}
+                    <span class="ml-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                        {{ cart_count }}
+                    </span>
+                {% endif %}
+            </a>
+            
+            <div class="mt-2 border-t border-yellow-500 pt-2">
+                <button id="mobile-profile-button" class="w-full text-left py-3 px-2 hover:bg-yellow-700 rounded transition duration-200 flex justify-between items-center">
+                    <span>Hi, {{ user.first_name|default:user.username }}</span>
+                    <i class="fas fa-caret-down"></i>
+                </button>
+                <div id="mobile-profile-menu" class="hidden pl-4">
+                    <a href="{% url 'profile' %}" class="block py-2 px-2 hover:bg-yellow-700 rounded transition duration-200">Profile</a>
+                    <a href="{% url 'order_history' %}" class="block py-2 px-2 hover:bg-yellow-700 rounded transition duration-200">My Orders</a>
+                    <a href="{% url 'logout' %}" class="block py-2 px-2 hover:bg-yellow-700 rounded transition duration-200">Logout</a>
+                </div>
+            </div>
+        {% else %}
+            <div class="mt-2 border-t border-yellow-500 pt-2">
+                <a href="{% url 'login' %}" class="block py-3 px-2 hover:bg-yellow-700 rounded transition duration-200">Login</a>
+                <a href="{% url 'register' %}" class="block py-3 px-2 bg-yellow-700 hover:bg-yellow-800 rounded transition duration-200 mt-2">Register</a>
+            </div>
+        {% endif %}
+    </div>
 
     <!-- Main Content -->
-    <main class="mt-10">
-        {% block content %}{% endblock content %}
+    <main class="container mx-auto px-4 py-8 min-h-screen">
+        {% if messages %}
+            <div class="mb-6">
+                {% for message in messages %}
+                    <div class="px-4 py-3 rounded relative {% if message.tags == 'success' %}bg-green-100 text-green-700 border border-green-200{% elif message.tags == 'error' %}bg-red-100 text-red-700 border border-red-200{% else %}bg-blue-100 text-blue-700 border border-blue-200{% endif %}">
+                        {{ message }}
+                        <button class="absolute top-0 right-0 px-4 py-3" onclick="this.parentElement.remove()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        {% block content %}{% endblock %}
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gradient-to-r from-blue-100 to-blue-200 py-6">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row items-center justify-between">
-                <!-- Footer Logo -->
-                <div class="mb-4 md:mb-0">
-                    <a href="{% url 'home' %}">
-                        <img src="{% static 'img/iconlogo.png' %}" alt="Logo"
-                            class="h-12 transition-transform duration-300 transform hover:scale-105 "></a>
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Burger Hut</h3>
+                    <p class="text-gray-300">Serving the best burgers since 2023</p>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-gray-300 hover:text-yellow-400 transition duration-200"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-yellow-400 transition duration-200"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-yellow-400 transition duration-200"><i class="fab fa-instagram"></i></a>
+                    </div>
                 </div>
-                <!-- Footer Links -->
-                <nav class="flex flex-wrap justify-center space-x-6 text-sm mb-4 md:mb-0">
-                    <a href="{% url 'home' %}" class="text-gray-700  hover:text-red-600">Home</a>
-                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-red-600">About</a>
-                    <a href="{% url 'menu' %}" class="text-gray-700 hover:text-red-600">Menu</a>
-                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-red-600">Contact</a>
-                </nav>
-                <!-- Social Icons -->
-                <div class="flex space-x-6 justify-center mt-8">
-                    <!-- Facebook Icon -->
-                    <a href="#"
-                        class="text-blue-600 hover:text-blue-800 transition duration-300 transform hover:scale-110">
-                        <i class="fab fa-facebook-f text-3xl"></i>
-                    </a>
-                    <!-- Twitter Icon -->
-                    <a href="#"
-                        class="text-blue-500 hover:text-blue-600 transition duration-300 transform hover:scale-110">
-                        <i class="fab fa-twitter text-3xl"></i>
-                    </a>
-                    <!-- Instagram Icon -->
-                    <a href="#"
-                        class="text-red-500 hover:text-red-600 transition duration-300 transform hover:scale-110">
-                        <i class="fab fa-instagram text-3xl"></i>
-                    </a>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'menu' %}" class="text-gray-300 hover:text-yellow-400 transition duration-200">Menu</a></li>
+                        <li><a href="{% url 'promotions' %}" class="text-gray-300 hover:text-yellow-400 transition duration-200">Promotions</a></li>
+                        <li><a href="{% url 'contact' %}" class="text-gray-300 hover:text-yellow-400 transition duration-200">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-yellow-400 transition duration-200">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Contact Info</h3>
+                    <div class="space-y-2 text-gray-300">
+                        <p class="flex items-center"><i class="fas fa-map-marker-alt mr-2"></i> Ghodaghodi -2,kailali</p>
+                        <p class="flex items-center"><i class="fas fa-phone mr-2"></i> +977 9824610090</p>
+                        <p class="flex items-center"><i class="fas fa-envelope mr-2"></i> info@burgerhut.com</p>
+                        <p class="flex items-center"><i class="fas fa-clock mr-2"></i> Mon-Sun: 10AM - 10PM</p>
+                    </div>
                 </div>
             </div>
-            <p class="text-center text-gray-500 text-sm mt-4">&copy; <span id="year"></span> <span
-                    class="text-red-500 hover:text-red-800">Berger Hut</span> . All rights reserved.</p>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
+                <p>&copy; <span id="current-year">2023</span> Burger Hut. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
     <script>
-        // Update footer year
-        document.getElementById('year').textContent = new Date().getFullYear();
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
 
-        // Toggle navbar for mobile
-        const toggleButton = document.getElementById('navbar-toggle');
-        const navbarMenu = document.getElementById('navbar-menu');
-
-        toggleButton.addEventListener('click', () => {
-            navbarMenu.classList.toggle('hidden');
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
         });
+
+        // Mobile profile menu toggle
+        const mobileProfileButton = document.getElementById('mobile-profile-button');
+        if (mobileProfileButton) {
+            mobileProfileButton.addEventListener('click', function() {
+                const profileMenu = document.getElementById('mobile-profile-menu');
+                profileMenu.classList.toggle('hidden');
+                
+                const icon = this.querySelector('i');
+                if (profileMenu.classList.contains('hidden')) {
+                    icon.classList.remove('fa-caret-up');
+                    icon.classList.add('fa-caret-down');
+                } else {
+                    icon.classList.remove('fa-caret-down');
+                    icon.classList.add('fa-caret-up');
+                }
+            });
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdowns = document.querySelectorAll('.dropdown');
+            dropdowns.forEach(dropdown => {
+                if (!dropdown.contains(event.target)) {
+                    const menu = dropdown.querySelector('.dropdown-menu');
+                    if (menu) menu.classList.add('hidden');
+                }
+            });
+            
+            // Close mobile menu when clicking outside
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu && !mobileMenuButton.contains(event.target) && !mobileMenu.contains(event.target)) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+
+        // Show dropdown on hover (desktop)
+        const dropdowns = document.querySelectorAll('.dropdown');
+        dropdowns.forEach(dropdown => {
+            dropdown.addEventListener('mouseenter', function() {
+                const menu = this.querySelector('.dropdown-menu');
+                if (menu) menu.classList.remove('hidden');
+            });
+            
+            dropdown.addEventListener('mouseleave', function() {
+                const menu = this.querySelector('.dropdown-menu');
+                if (menu) menu.classList.add('hidden');
+            });
+        });
+
+        // Dark/Light mode toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const mobileThemeIcon = document.getElementById('mobile-theme-icon');
+        const mobileThemeText = document.querySelector('#mobile-theme-toggle span');
+
+        // Check for saved user preference or use system preference
+        const savedTheme = localStorage.getItem('theme') || 
+                         (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        // Apply the saved theme
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+            mobileThemeIcon.classList.replace('fa-moon', 'fa-sun');
+            mobileThemeText.textContent = 'Light Mode';
+        }
+
+        // Toggle theme
+        function toggleTheme() {
+            if (document.body.classList.contains('dark-mode')) {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+                mobileThemeIcon.classList.replace('fa-sun', 'fa-moon');
+                mobileThemeText.textContent = 'Dark Mode';
+            } else {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+                mobileThemeIcon.classList.replace('fa-moon', 'fa-sun');
+                mobileThemeText.textContent = 'Light Mode';
+            }
+        }
+
+        // Add event listeners
+        if (themeToggle) {
+            themeToggle.addEventListener('click', toggleTheme);
+        }
+        if (mobileThemeToggle) {
+            mobileThemeToggle.addEventListener('click', toggleTheme);
+        }
     </script>
 </body>
-
 </html>

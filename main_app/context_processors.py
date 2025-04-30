@@ -1,11 +1,13 @@
-# context_processors.py
-from .models import OrderItem, Order
+from .models import Order
 
-def cart_item_count(request):
+def cart_context(request):
+    context = {}
     if request.user.is_authenticated:
-        # Assuming you have a way to identify the current order
-        current_order = Order.objects.filter(user=request.user, is_completed=False).first()
-        if current_order:
-            total_items = sum(item.quantity for item in current_order.items.all())
-            return {'cart_item_count': total_items}
-    return {'cart_item_count': 0}
+        pending_order = Order.objects.filter(
+            user=request.user,
+            status='pending'
+        ).prefetch_related('items').first()
+        context['cart_count'] = pending_order.items.count() if pending_order else 0
+    else:
+        context['cart_count'] = 0
+    return context

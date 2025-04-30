@@ -1,0 +1,180 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block title %}{{ item.name }}{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <!-- Breadcrumb -->
+    <nav class="flex mb-6" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+                <a href="{% url 'home' %}" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-yellow-600 dark:text-gray-300 dark:hover:text-yellow-500">
+                    <i class="fas fa-home mr-2"></i>
+                    Home
+                </a>
+            </li>
+            <li>
+                <div class="flex items-center">
+                    <i class="fas fa-chevron-right text-gray-400 mx-2 dark:text-gray-500"></i>
+                    <a href="{% url 'menu' %}" class="ml-1 text-sm font-medium text-gray-700 hover:text-yellow-600 dark:text-gray-300 dark:hover:text-yellow-500">Menu</a>
+                </div>
+            </li>
+            {% if item.category %}
+            <li>
+                <div class="flex items-center">
+                    <i class="fas fa-chevron-right text-gray-400 mx-2 dark:text-gray-500"></i>
+                    <a href="{% url 'menu_category' category_slug=item.category.slug %}" class="ml-1 text-sm font-medium text-gray-700 hover:text-yellow-600 dark:text-gray-300 dark:hover:text-yellow-500">{{ item.category.name }}</a>
+                </div>
+            </li>
+            {% endif %}
+            <li aria-current="page">
+                <div class="flex items-center">
+                    <i class="fas fa-chevron-right text-gray-400 mx-2 dark:text-gray-500"></i>
+                    <span class="ml-1 text-sm font-medium text-gray-500 dark:text-gray-400">{{ item.name }}</span>
+                </div>
+            </li>
+        </ol>
+    </nav>
+
+    <!-- Item Details -->
+    <div class="bg-white rounded-lg shadow-md overflow-hidden mb-8 dark:bg-gray-800">
+        <div class="md:flex">
+            <div class="md:w-1/2">
+                <img src="{{ item.image.url|default:'/static/images/default-burger.jpg' }}" alt="{{ item.name }}" class="w-full h-full object-cover">
+            </div>
+            <div class="md:w-1/2 p-6">
+                <h1 class="text-3xl font-bold mb-2 text-gray-900 dark:text-white">{{ item.name }}</h1>
+                <div class="flex items-center mb-4">
+                    <div class="flex text-yellow-400 mr-2">
+                        {% for i in "12345" %}
+                            {% if forloop.counter <= item.average_rating %}
+                                <i class="fas fa-star"></i>
+                            {% else %}
+                                <i class="far fa-star"></i>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <span class="text-gray-600 dark:text-gray-300">({{ item.reviews.count }} reviews)</span>
+                </div>
+                
+                <p class="text-2xl font-bold text-yellow-600 dark:text-yellow-500 mb-4">Rs {{ item.price }}</p>
+                
+                <p class="text-gray-700 dark:text-gray-300 mb-6">{{ item.description }}</p>
+                
+                <div class="mb-6">
+                    <h3 class="font-semibold mb-2 text-gray-900 dark:text-white">Ingredients:</h3>
+                    <div class="flex flex-wrap gap-2">
+                        {% for ingredient in item.ingredients.all %}
+                        <span class="bg-gray-100 px-3 py-1 rounded-full text-sm dark:bg-gray-700 dark:text-gray-200">
+                            {{ ingredient.name }}
+                            {% if ingredient.is_vegetarian %}<i class="fas fa-leaf text-green-500 ml-1"></i>{% endif %}
+                            {% if ingredient.is_vegan %}<i class="fas fa-seedling text-green-700 ml-1"></i>{% endif %}
+                            {% if ingredient.is_gluten_free %}<i class="fas fa-bread-slice text-yellow-600 ml-1"></i>{% endif %}
+                        </span>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <form action="{% url 'add_to_cart' item_id=item.id %}" method="post" class="flex items-center">
+                    {% csrf_token %}
+                    <div class="mr-4">
+                        <label for="quantity" class="sr-only">Quantity</label>
+                        <input type="number" id="quantity" name="quantity" value="1" min="1" class="w-20 px-3 py-2 border rounded dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    </div>
+                    <button type="submit" class="bg-yellow-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-yellow-700 transition flex items-center dark:bg-yellow-700 dark:hover:bg-yellow-800">
+                        <i class="fas fa-shopping-cart mr-2"></i> Add to Cart
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reviews Section -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-8 dark:bg-gray-800">
+        <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Customer Reviews</h2>
+        
+        {% if reviews %}
+        <div class="space-y-6 mb-8">
+            {% for review in reviews %}
+            <div class="border-b border-gray-200 pb-6 last:border-0 last:pb-0 dark:border-gray-700">
+                <div class="flex justify-between items-start mb-2">
+                    <div>
+                        <h4 class="font-semibold text-gray-900 dark:text-white">{{ review.user.get_full_name|default:review.user.username }}</h4>
+                        <div class="flex items-center">
+                            <div class="flex text-yellow-400 mr-2">
+                                {% for i in "12345" %}
+                                    {% if forloop.counter <= review.rating %}
+                                        <i class="fas fa-star"></i>
+                                    {% else %}
+                                        <i class="far fa-star"></i>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <span class="text-gray-500 text-sm dark:text-gray-400">{{ review.created_at|date:"F j, Y" }}</span>
+                        </div>
+                    </div>
+                    {% if review.user == request.user %}
+                    <form action="{% url 'delete_review' review.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-600">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                    {% endif %}
+                </div>
+                <p class="text-gray-700 dark:text-gray-300">{{ review.comment }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-8">
+            <i class="fas fa-comment-slash text-4xl text-gray-300 mb-4 dark:text-gray-500"></i>
+            <p class="text-gray-600 dark:text-gray-400">No reviews yet. Be the first to review!</p>
+        </div>
+        {% endif %}
+        
+        {% if user.is_authenticated %}
+        <div>
+            <h3 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Write a Review</h3>
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2 dark:text-gray-300">Your Rating</label>
+                    <div class="flex">
+                        {% for i in "12345" %}
+                        <button type="button" onclick="document.getElementById('id_rating').value = {{ forloop.counter }}" class="text-2xl mr-1 focus:outline-none">
+                            <i class="{% if forloop.counter <= review_form.initial.rating|default:0 %}fas fa-star text-yellow-400{% else %}far fa-star text-gray-300 dark:text-gray-500{% endif %}"></i>
+                        </button>
+                        {% endfor %}
+                        {{ review_form.rating }}
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label for="{{ review_form.comment.id_for_label }}" class="block text-gray-700 mb-2 dark:text-gray-300">{{ review_form.comment.label }}</label>
+                    <textarea name="{{ review_form.comment.name }}" id="{{ review_form.comment.id_for_label }}" class="w-full px-3 py-2 border rounded dark:bg-gray-700 dark:border-gray-600 dark:text-white">{{ review_form.comment.value|default:'' }}</textarea>
+                    {% if review_form.comment.errors %}
+                    <p class="text-red-500 text-sm mt-1 dark:text-red-400">{{ review_form.comment.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                <button type="submit" class="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 dark:bg-yellow-700 dark:hover:bg-yellow-800">Submit Review</button>
+            </form>
+        </div>
+        {% else %}
+        <div class="text-center py-4 bg-yellow-50 rounded dark:bg-gray-700">
+            <p class="text-gray-700 dark:text-gray-300">You must <a href="{% url 'login' %}?next={{ request.path }}" class="text-yellow-600 hover:text-yellow-700 font-medium dark:text-yellow-500 dark:hover:text-yellow-400">login</a> to write a review.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    // Initialize rating input
+    document.addEventListener('DOMContentLoaded', function() {
+        const ratingInput = document.getElementById('id_rating');
+        if (!ratingInput.value) {
+            ratingInput.value = '5'; // Default to 5 stars
+        }
+    });
+</script>
+{% endblock %}

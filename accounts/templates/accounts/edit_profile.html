@@ -1,0 +1,176 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+        <!-- Card Header -->
+        <div class="bg-blue-600 px-6 py-4">
+            <h3 class="text-xl font-semibold text-white">Edit Profile</h3>
+        </div>
+        
+        <!-- Card Body -->
+        <div class="p-6 sm:p-8">
+            <form method="POST" enctype="multipart/form-data" class="space-y-6">
+                {% csrf_token %}
+                
+                <!-- Profile Picture Section -->
+                <div class="flex flex-col md:flex-row gap-6">
+                    <!-- Current Profile Picture -->
+                    <div class="w-full md:w-1/2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Current Profile Picture</label>
+                        <div class="flex justify-center">
+                            {% if user.profile_picture %}
+                                <img src="{{ user.profile_picture.url }}" 
+                                     class="rounded-full w-36 h-36 object-cover border-4 border-white shadow">
+                            {% else %}
+                                <div class="bg-gray-100 rounded-full w-36 h-36 flex items-center justify-center shadow border border-gray-200">
+                                    <i class="fas fa-user text-gray-400 text-5xl"></i>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <!-- New Profile Picture Upload -->
+                    <div class="w-full md:w-1/2">
+                        <label for="id_profile_picture" class="block text-sm font-medium text-gray-700 mb-2">
+                            Change Profile Picture
+                        </label>
+                        <div class="mt-1 flex items-center">
+                            {{ form.profile_picture }}
+                        </div>
+                        <p class="mt-2 text-sm text-gray-500">
+                            Upload a new profile picture (optional)
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Form Fields -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- First Name -->
+                    <div>
+                        <label for="id_first_name" class="block text-sm font-medium text-gray-700 mb-1">
+                            First Name
+                        </label>
+                        {{ form.first_name }}
+                        {% if form.first_name.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ form.first_name.errors.as_text }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Last Name -->
+                    <div>
+                        <label for="id_last_name" class="block text-sm font-medium text-gray-700 mb-1">
+                            Last Name
+                        </label>
+                        {{ form.last_name }}
+                        {% if form.last_name.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ form.last_name.errors.as_text }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Email -->
+                    <div>
+                        <label for="id_email" class="block text-sm font-medium text-gray-700 mb-1">
+                            Email
+                        </label>
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ form.email.errors.as_text }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Phone Number -->
+                    <div>
+                        <label for="id_phone_number" class="block text-sm font-medium text-gray-700 mb-1">
+                            Phone Number
+                        </label>
+                        {{ form.phone_number }}
+                        {% if form.phone_number.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ form.phone_number.errors.as_text }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Birth Date -->
+                    <div>
+                        <label for="id_birth_date" class="block text-sm font-medium text-gray-700 mb-1">
+                            Birth Date
+                        </label>
+                        {{ form.birth_date }}
+                        {% if form.birth_date.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ form.birth_date.errors.as_text }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Promotions Checkbox -->
+                    <div class="flex items-center">
+                        <div class="flex items-center h-5">
+                            {{ form.receive_promotions }}
+                        </div>
+                        <label for="id_receive_promotions" class="ml-2 block text-sm text-gray-700">
+                            Receive promotions and updates
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Address (full width) -->
+                <div>
+                    <label for="id_address" class="block text-sm font-medium text-gray-700 mb-1">
+                        Address
+                    </label>
+                    {{ form.address }}
+                    {% if form.address.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ form.address.errors.as_text }}</p>
+                    {% endif %}
+                </div>
+                
+                <!-- Form Actions -->
+                <div class="flex flex-col-reverse sm:flex-row sm:justify-between gap-4 pt-4">
+                    <a href="{% url 'profile' %}" class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150">
+                        Cancel
+                    </a>
+                    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150">
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Add styling for form inputs -->
+<style>
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    textarea,
+    select {
+        @apply w-full rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-3 py-2;
+    }
+    
+    input[type="file"] {
+        @apply text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border file:border-gray-300 file:text-sm file:font-semibold file:bg-white file:text-gray-700 hover:file:bg-gray-50;
+    }
+    
+    input[type="checkbox"] {
+        @apply h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded;
+    }
+    
+    textarea {
+        @apply min-h-[100px];
+    }
+    
+    /* Style for select dropdown */
+    select {
+        @apply pr-8;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+        background-position: right 0.5rem center;
+        background-repeat: no-repeat;
+        background-size: 1.5em 1.5em;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+</style>
+{% endblock %}
